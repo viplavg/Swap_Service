@@ -55,7 +55,8 @@ userSchema.methods.generateToken = function() {
         },
         process.env.JWT_SECRET,
         {
-            expiresIn: "2d"
+            expiresIn: process.env.JWT_EXPIRES_IN,
+
         }
     );
 }
