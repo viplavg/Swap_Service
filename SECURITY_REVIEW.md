@@ -26,6 +26,10 @@ After successful login, the backend generates a signed JWT containing the user's
 
 Protected routes require a valid JWT in the Authorization header.
 
+JWT expiration is configured through the `JWT_EXPIRES_IN` environment variable to reduce the risk associated with long-lived tokens.
+
+Employee-facing endpoints use the authenticated user identity from the JWT payload to ensure users can only access resources related to themselves.
+
 ### Benefits
 
 - Stateless authentication.
@@ -125,6 +129,7 @@ Recommended future improvements include:
 - Refresh token support.
 - Security audit logging.
 - Account lockout mechanisms after repeated failed login attempts.
+- Enforcing HTTPS-only communication.
 
 ## Privacy Considerations
 

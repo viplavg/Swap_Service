@@ -2,21 +2,21 @@
 
 ## Architecture Overview
 
-The application follows a client-server architecture.
+The application follows a REST API architecture.
 
-- The React frontend provides separate workflows for employees and managers.
-- The Express backend exposes REST APIs for authentication, shift management, and swap request management.
+- The Express backend exposes APIs for authentication, shift management, and swap request management.
 - MongoDB stores users, shifts, and swap requests.
 - JWT is used to authenticate protected API requests.
 - Role-based middleware controls access to employee and manager operations.
+- API consumers can interact with the service through tools such as Postman or a future frontend application.
 
-The backend is organized into routes, controllers, middleware, models, and validators. This keeps responsibilities separated and makes the application easier to test and maintain.
+The backend is organized into routes, controllers, middleware, models, and validators. This separation of concerns improves maintainability, testing, and scalability.
 
 ## High-Level Flow
 
 1. A user registers or logs in.
 2. The backend returns a signed JWT.
-3. The frontend sends the JWT with protected API requests.
+3. The client sends the JWT with protected API requests.
 4. Employees can view their shifts and create swap requests.
 5. Managers can view pending requests and approve or reject them.
 6. When a request is approved, both shift ownership records and the swap request status are updated inside a MongoDB transaction.
@@ -89,7 +89,7 @@ Responsibilities:
 
 When a user registers or logs in, the backend generates a signed JWT containing the user's ID and role.
 
-The frontend sends this token in the `Authorization` header for protected requests:
+Clients send this token in the Authorization header for protected requests:
 
 ```http
 Authorization: Bearer <token>
@@ -154,6 +154,36 @@ The request status is updated from `PENDING` to `REJECTED`, and the manager ID a
 
 A transaction is not required for rejection because only one document is updated.
 
+## API Interface Overview
+
+The service exposes REST endpoints grouped by business capability.
+
+### Authentication
+
+- POST `/api/v1/auth/register`
+- POST `/api/v1/auth/login`
+
+### Shifts
+
+- POST `/api/v1/shifts`
+- GET `/api/v1/shifts/my-shifts`
+
+### Swap Requests
+
+- POST `/api/v1/swaps`
+- GET `/api/v1/swaps/my-requests`
+- GET `/api/v1/swaps/pending`
+- PATCH `/api/v1/swaps/:id/approve`
+- PATCH `/api/v1/swaps/:id/reject`
+
+Protected endpoints require a valid JWT in the Authorization header.
+
+```http
+Authorization: Bearer <token>
+```
+
+The API uses JSON request and response bodies and follows standard HTTP status codes.
+
 ## Validation and Business Rules
 
 The backend enforces the following rules:
@@ -186,7 +216,7 @@ The system handles common failure scenarios as follows:
 
 ### JWT-Based Authentication
 
-JWT was selected because it keeps the API stateless and works well with a separate React frontend.
+JWT was selected because it keeps the API stateless and allows any authorized client to access protected endpoints without maintaining server-side session state.
 
 Trade-off:
 
@@ -234,3 +264,15 @@ Possible future improvements include:
 - Background jobs for email or notification delivery.
 - Audit logging for manager actions.
 - Horizontal scaling of stateless API instances behind a load balancer.
+
+### Future Enhancements
+
+The current submission intentionally focuses on the backend API service.
+
+Potential future enhancements include:
+
+- Web-based frontend interface
+- Employee notification workflows
+- Employee acceptance before manager approval
+- Audit dashboards
+- Advanced reporting

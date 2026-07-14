@@ -28,20 +28,25 @@ The deployment process follows these steps:
 2. Trigger deployment through the hosting platform.
 3. Build the application.
 4. Deploy the new version.
-5. Verify application health.
-6. Perform smoke testing of critical functionality.
+5. Verify the `/health` endpoint.
+6. Perform smoke testing using the provided Postman collection.
+7. Verify database connectivity and transaction behavior.
 
-### Smoke Tests
+## Smoke Tests
 
 After deployment, the following functionality should be verified:
 
+- Health endpoint response.
 - User registration.
 - User login.
-- Shift creation.
+- Manager shift creation.
 - Shift retrieval.
 - Swap request creation.
-- Swap approval and rejection.
-- Health endpoint response.
+- Swap approval.
+- Swap rejection.
+- Correct shift ownership updates after approval.
+
+The included Postman collection can be used to execute these checks quickly after deployment.
 
 Successful smoke tests indicate that core functionality is operating correctly.
 
@@ -119,4 +124,6 @@ These approaches reduce deployment risk and improve operational resilience.
 
 ## Conclusion
 
-The rollout and rollback strategy emphasizes validation, monitoring, and rapid recovery. By combining automated testing, smoke testing, health checks, and controlled rollback procedures, the application can be deployed with reduced operational risk.
+The rollout and rollback strategy emphasizes validation, monitoring, and rapid recovery.
+
+By combining automated testing, health checks, Postman-based smoke testing, deployment verification, and controlled rollback procedures, the application can be released with reduced operational risk while maintaining the ability to recover quickly from unexpected issues.

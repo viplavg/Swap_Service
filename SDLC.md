@@ -78,11 +78,12 @@ Key controls include:
 
 The deployment approach is documented in `DEPLOYMENT_PLAN.md`.
 
-The proposed environment uses:
+The proposed deployment environment uses:
 
-- Vercel for a future frontend if added.
 - Render for the backend API.
 - MongoDB Atlas for the database.
+
+The application can be validated after deployment using the provided Postman collection and the `/health` endpoint.
 
 ## Rollout and Rollback
 
@@ -104,6 +105,7 @@ Current signals include:
 - Application logs.
 - Error logs.
 - The `/health` endpoint.
+- Post-deployment smoke tests using the provided Postman collection.
 
 Future production monitoring would include response time, error rate, request volume, database latency, and alerting.
 

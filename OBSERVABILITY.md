@@ -60,8 +60,9 @@ For the current assessment scope, monitoring is primarily based on:
 - Application logs.
 - Error logs.
 - Health endpoint checks.
+- Post-deployment smoke testing using the provided Postman collection.
 
-In a production environment, monitoring tools can be integrated to provide deeper operational visibility.
+In a production environment, monitoring tools can be integrated to provide deeper operational visibility and automated alerting.
 
 ## Metrics
 
@@ -101,4 +102,8 @@ Possible observability enhancements include:
 
 ## Conclusion
 
-The current implementation provides a basic observability foundation through logging and health checks. Additional monitoring, metrics collection, and alerting capabilities can be introduced as the application evolves toward production use.
+The current implementation provides a basic observability foundation through logging and health checks.
+
+Post-deployment monitoring can be performed using health checks, application logs, error logs, and smoke tests executed through the included Postman collection.
+
+Additional monitoring, metrics collection, and alerting capabilities can be introduced as the application evolves toward production use.

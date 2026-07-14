@@ -99,6 +99,24 @@ Without safeguards, duplicate processing could occur.
 
 The application verifies that the swap request status is still `PENDING` before approval. Requests that have already been processed are rejected.
 
+## Idempotency Considerations
+
+### Scenario
+
+A client retries a request due to a timeout or network interruption.
+
+### Impact
+
+The same operation could be processed more than once.
+
+### Handling
+
+The system prevents duplicate processing of swap approvals by verifying that the swap request status remains `PENDING` before processing.
+
+Once a request has been approved or rejected, additional approval or rejection attempts are rejected.
+
+Duplicate pending swap requests involving the same requester shift and target shift are also prevented.
+
 ## Transaction Failure During Approval
 
 ### Scenario
@@ -146,6 +164,22 @@ The current request fails.
 ### Handling
 
 Errors are caught by application error handling logic and a generic error response is returned without exposing internal implementation details.
+
+## Data Leakage Prevention
+
+### Scenario
+
+An API response or error message exposes sensitive internal information.
+
+### Impact
+
+Sensitive implementation details or user information could be disclosed.
+
+### Handling
+
+The application returns structured error responses and avoids exposing stack traces, database details, secrets, or internal implementation information to API consumers.
+
+Authentication and authorization controls ensure users can only access permitted resources.
 
 ## Recovery Strategy
 
