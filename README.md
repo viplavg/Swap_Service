@@ -1,6 +1,6 @@
 # Shift Swap Request and Approval System
 
-A small full-stack application that allows employees to request shift swaps with other employees and allows managers to approve or reject those requests.
+A backend REST API service that allows employees to request shift swaps with other employees and allows managers to approve or reject those requests.
 
 The project focuses on a correct and tested core workflow, role-based authorization, transaction-safe approvals, and a clear deployment and operational plan.
 
@@ -30,6 +30,17 @@ The project focuses on a correct and tested core workflow, role-based authorizat
 - Automated API tests
 - Structured error responses
 
+## Scope
+
+This submission focuses on the backend API service and supporting SDLC artifacts required by the assessment.
+
+Out of scope:
+
+- Frontend user interface
+- Employee notification system
+- Employee acceptance workflow
+- Advanced reporting and analytics
+
 ## Tech Stack
 
 ### Backend
@@ -44,11 +55,6 @@ The project focuses on a correct and tested core workflow, role-based authorizat
 - Jest
 - Supertest
 - mongodb-memory-server
-
-### Frontend
-
-- React
-- Vite
 
 ## Project Structure
 
@@ -68,7 +74,16 @@ ukg-shift-swap/
 │   ├── .env.example
 │   ├── jest.config.js
 │   └── package.json
-├── client/
+├── postman/
+│   └── ukg-shift-service.postman_collection.json
+├── DESIGN.md
+├── FAILURE_MODES.md
+├── DEPLOYMENT_PLAN.md
+├── SECURITY_REVIEW.md
+├── OBSERVABILITY.md
+├── ROLLOUT_AND_ROLLBACK.md
+├── AI_USAGE_DISCLOSURE.md
+├── SDLC.md
 └── README.md
 ```
 
@@ -129,32 +144,6 @@ Health Check:
 
 ```http
 GET /health
-```
-
-## Frontend Setup
-
-Navigate to the frontend directory:
-
-```bash
-cd client
-```
-
-Install dependencies:
-
-```bash
-npm install
-```
-
-Start the development server:
-
-```bash
-npm run dev
-```
-
-The frontend application will be available at:
-
-```text
-http://localhost:5173
 ```
 
 ## Running Tests
@@ -231,7 +220,7 @@ Current test status:
 
 ### Authentication
 
-JWT-based authentication is used because the API is stateless and the frontend can send the token with each protected request. Tokens include the user ID and role so the backend can identify the authenticated user and apply role-based access control.
+JWT-based authentication is used because the API is stateless and clients can send the token with each protected request. Tokens include the user ID and role so the backend can identify the authenticated user and apply role-based access control.
 
 ### Authorization
 
@@ -253,6 +242,25 @@ Approving a swap updates both shifts and the swap request status. MongoDB transa
 
 The backend follows a controller, route, middleware, model, and validator structure. This separation improves readability, testing, and maintainability without introducing unnecessary complexity for the current scope.
 
+## API Testing with Postman
+
+A Postman collection is included in the repository:
+
+`postman/Shift-Swap-API.postman_collection.json`
+
+To use it:
+
+1. Import the collection into Postman.
+2. Set the `baseUrl` collection variable to:
+
+   `http://localhost:5000`
+
+3. Register or log in with the required users.
+4. Set the generated JWT tokens in the relevant collection variables.
+5. Run the requests in the documented order.
+
+The collection covers authentication, shift management, swap request creation, approval, rejection, and health-check flows.
+
 ## Additional Documentation
 
 - DESIGN.md
@@ -263,3 +271,9 @@ The backend follows a controller, route, middleware, model, and validator struct
 - ROLLOUT_AND_ROLLBACK.md
 - AI_USAGE_DISCLOSURE.md
 - SDLC.md
+
+## Deployment
+
+Deployment guidance is provided in `DEPLOYMENT_PLAN.md`.
+
+The API can be deployed to platforms such as Render while using MongoDB Atlas as the backing database.
