@@ -84,6 +84,7 @@ export const approveSwapRequest = async (req, res) => {
         const swapRequest = await SwapRequest.findById(id).populate('requesterShift targetShift').session(session);
 
         if (!swapRequest) {
+            await session.abortTransaction();
             return res.status(404).json({
                 success: false,
                 message: 'Swap request not found',
@@ -91,6 +92,7 @@ export const approveSwapRequest = async (req, res) => {
         }
 
         if (swapRequest.status !== 'PENDING') {
+            await session.abortTransaction();
             return res.status(409).json({
                 success: false,
                 message: 'Only pending swap requests can be approved',
@@ -102,6 +104,7 @@ export const approveSwapRequest = async (req, res) => {
         const targetShift = swapRequest.targetShift;
 
         if(!requesterShift || !targetShift) {
+            await session.abortTransaction();
             return res.status(404).json({
                 success: false,
                 message: 'One or both shifts no longer exist',
@@ -115,12 +118,11 @@ export const approveSwapRequest = async (req, res) => {
         await requesterShift.save({ session });
         await targetShift.save({ session });
 
-        // Assuming the manager has the authority to approve the swap
         swapRequest.status = 'APPROVED';
         swapRequest.reviewedBy = managerId;
         swapRequest.reviewedAt = new Date();
 
-        await swapRequest.save({ session});
+        await swapRequest.save({ session });
 
         await session.commitTransaction();
 
