@@ -262,3 +262,4 @@ The backend follows a controller, route, middleware, model, and validator struct
 - OBSERVABILITY.md
 - ROLLOUT_AND_ROLLBACK.md
 - AI_USAGE_DISCLOSURE.md
+- SDLC.md
