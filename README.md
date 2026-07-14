@@ -252,3 +252,13 @@ Approving a swap updates both shifts and the swap request status. MongoDB transa
 ### API Structure
 
 The backend follows a controller, route, middleware, model, and validator structure. This separation improves readability, testing, and maintainability without introducing unnecessary complexity for the current scope.
+
+## Additional Documentation
+
+- DESIGN.md
+- FAILURE_MODES.md
+- DEPLOYMENT_PLAN.md
+- SECURITY_REVIEW.md
+- OBSERVABILITY.md
+- ROLLOUT_AND_ROLLBACK.md
+- AI_USAGE_DISCLOSURE.md
