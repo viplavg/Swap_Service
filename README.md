@@ -75,7 +75,7 @@ ukg-shift-swap/
 │   ├── jest.config.js
 │   └── package.json
 ├── postman/
-│   └── ukg-shift-service.postman_collection.json
+│   └── Shift.Swap-API.postman_collection.json
 ├── DESIGN.md
 ├── FAILURE_MODES.md
 ├── DEPLOYMENT_PLAN.md
@@ -145,6 +145,33 @@ Health Check:
 ```http
 GET /health
 ```
+
+## Live Deployment
+
+The backend REST API is deployed on Render.
+
+Base URL:
+
+```text
+https://ukg-shift-swap-api.onrender.com
+```
+
+Health Check:
+
+```http
+GET https://ukg-shift-swap-api.onrender.com/health
+```
+
+Expected Response:
+
+```json
+{
+  "success": true,
+  "message": "Server is running successfully"
+}
+```
+
+> Note: The API is hosted on Render's free tier. The first request after a period of inactivity may take longer because the service may need to start again.
 
 ## Running Tests
 
@@ -246,34 +273,59 @@ The backend follows a controller, route, middleware, model, and validator struct
 
 A Postman collection is included in the repository:
 
-`postman/Shift-Swap-API.postman_collection.json`
+`postman/ukg-shift-service.postman_collection.json`
 
-To use it:
+### Configuration
 
-1. Import the collection into Postman.
-2. Set the `baseUrl` collection variable to:
+Import the collection into Postman and configure the `baseUrl` variable.
 
-   `http://localhost:5000`
+For local development:
 
-3. Register or log in with the required users.
-4. Set the generated JWT tokens in the relevant collection variables.
-5. Run the requests in the documented order.
+```text
+http://localhost:5000
+```
 
-The collection covers authentication, shift management, swap request creation, approval, rejection, and health-check flows.
+For the deployed API:
+
+```text
+https://ukg-shift-swap-api.onrender.com
+```
+
+### Suggested Test Flow
+
+1. Register a manager account.
+2. Register two employee accounts.
+3. Log in and obtain JWT tokens.
+4. Create shifts using the manager account.
+5. Retrieve assigned shifts.
+6. Create a swap request.
+7. View pending swap requests.
+8. Approve or reject a swap request.
+9. Verify shift ownership changes after approval.
+
+The collection covers authentication, shift management, swap request creation, approval, rejection, authorization checks, and health-check validation.
 
 ## Additional Documentation
 
-- DESIGN.md
-- FAILURE_MODES.md
-- DEPLOYMENT_PLAN.md
-- SECURITY_REVIEW.md
-- OBSERVABILITY.md
-- ROLLOUT_AND_ROLLBACK.md
-- AI_USAGE_DISCLOSURE.md
-- SDLC.md
+The following documents provide detailed information about different SDLC phases and operational considerations:
+
+- `DESIGN.md` – Architecture, data model, API design, and trade-offs.
+- `FAILURE_MODES.md` – Failure scenarios, recovery behavior, idempotency, and rollback considerations.
+- `DEPLOYMENT_PLAN.md` – Deployment architecture, environment configuration, migration strategy, and operational guidance.
+- `SECURITY_REVIEW.md` – Authentication, authorization, privacy, and security considerations.
+- `OBSERVABILITY.md` – Logging, monitoring, metrics, and alerting strategy.
+- `ROLLOUT_AND_ROLLBACK.md` – Deployment validation, rollout process, and rollback procedures.
+- `AI_USAGE_DISCLOSURE.md` – Description of AI-assisted development activities.
+- `SDLC.md` – End-to-end mapping of requirements, design, implementation, testing, deployment, and operations.
 
 ## Deployment
 
-Deployment guidance is provided in `DEPLOYMENT_PLAN.md`.
+The application is currently deployed using:
 
-The API can be deployed to platforms such as Render while using MongoDB Atlas as the backing database.
+- Render for the backend API service
+- MongoDB Atlas for database hosting
+
+Live API:
+
+```text
+https://ukg-shift-swap-api.onrender.com
