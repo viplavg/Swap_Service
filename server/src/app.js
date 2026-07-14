@@ -3,6 +3,8 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import authRoutes from './routes/auth.routes.js';
+import shiftRoutes from './routes/shift.routes.js';
+import swapRoutes from './routes/swap.routes.js';
 
 const app = express();
 
@@ -22,6 +24,8 @@ app.get("/health", (req, res) => {
 });
 
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/shifts", shiftRoutes);
+app.use("/api/v1/swaps", swapRoutes);
 
 
 export default app;
