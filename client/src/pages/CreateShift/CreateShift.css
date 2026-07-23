@@ -1,0 +1,143 @@
+.create-shift-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.create-shift-heading h2 {
+  margin: 4px 0 8px;
+  color: #0f172a;
+  font-size: 30px;
+}
+
+.create-shift-heading p {
+  margin: 0;
+  color: #64748b;
+}
+
+.create-shift-form {
+  width: 100%;
+  max-width: 650px;
+  padding: 26px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  color: #0f172a;
+  font-size: 15px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.shift-time-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.form-error {
+  color: #dc2626;
+  font-size: 13px;
+}
+
+.form-success,
+.form-api-error {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-success {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.form-api-error {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.create-shift-form button {
+  width: 100%;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.create-shift-form button:hover {
+  background: #1d4ed8;
+}
+
+.create-shift-form button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+@media (max-width: 600px) {
+  .shift-time-grid {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .create-shift-form {
+    padding: 20px;
+  }
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #ffffff;
+  color: #0f172a;
+  font-size: 15px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px
+    rgba(37, 99, 235, 0.12);
+}
+
+.form-group input:disabled,
+.form-group select:disabled {
+  cursor: not-allowed;
+  background: #f8fafc;
+  opacity: 0.7;
+}
